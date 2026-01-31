@@ -1,0 +1,17 @@
+import { createBrowserClient } from "@supabase/ssr";
+
+export function createClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // During build time, env vars might not be available
+  if (!supabaseUrl || !supabaseKey) {
+    // Return a dummy client that will be replaced at runtime
+    return createBrowserClient(
+      "https://placeholder.supabase.co",
+      "placeholder-key"
+    );
+  }
+
+  return createBrowserClient(supabaseUrl, supabaseKey);
+}

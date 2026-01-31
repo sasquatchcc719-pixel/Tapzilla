@@ -4,24 +4,98 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f172a;
+    --foreground: #f8fafc;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00d9d5;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00afaf;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer components {
+  /* Button variants */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-accent-500 text-white font-semibold rounded-lg shadow-lg hover:bg-accent-600 transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg shadow-lg hover:bg-primary-700 transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 border-2 border-primary-600 text-primary-600 font-semibold rounded-lg hover:bg-primary-600 hover:text-white transition-all duration-200;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white rounded-2xl shadow-lg p-6 border border-neutral-100 hover:shadow-xl transition-shadow duration-300;
+  }
+
+  /* Section styles */
+  .section {
+    @apply py-16 md:py-24 px-4;
+  }
+
+  .section-dark {
+    @apply bg-neutral-900 text-white;
+  }
+
+  .section-light {
+    @apply bg-neutral-50;
+  }
+
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent;
+  }
+
+  /* Chat bubble styles */
+  .chat-bubble-bot {
+    @apply bg-neutral-100 text-neutral-900 rounded-2xl rounded-tl-sm p-4 max-w-xs;
+  }
+
+  .chat-bubble-user {
+    @apply bg-primary-600 text-white rounded-2xl rounded-tr-sm p-4 max-w-xs ml-auto;
   }
 }
