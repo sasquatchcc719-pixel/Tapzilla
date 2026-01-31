@@ -30,19 +30,19 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-900 text-white">
+    <footer className="bg-black/80 text-white">
       <div className="container-custom py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="mb-4 inline-block">
               <img 
-                src="/logo-horizontal.png" 
+                src="/Tapzilla.svg" 
                 alt="Tapzilla" 
-                className="h-12 w-auto"
+                className="h-10 w-auto"
               />
             </Link>
-            <p className="text-neutral-400 text-sm">
+            <p className="text-white/80 text-sm">
               An AI Salesperson Behind Every QR Code
             </p>
           </div>
@@ -55,7 +55,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-neutral-400 hover:text-primary-400 transition-colors text-sm"
+                    className="text-white/80 hover:text-primary-400 transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -72,7 +72,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-neutral-400 hover:text-primary-400 transition-colors text-sm"
+                    className="text-white/80 hover:text-primary-400 transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -89,7 +89,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-neutral-400 hover:text-primary-400 transition-colors text-sm"
+                    className="text-white/80 hover:text-primary-400 transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -106,7 +106,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-neutral-400 hover:text-primary-400 transition-colors text-sm"
+                    className="text-white/80 hover:text-primary-400 transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -118,13 +118,13 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-neutral-400 text-sm">
+          <p className="text-white/80 text-sm">
             &copy; {new Date().getFullYear()} Tapzilla. All rights reserved.
           </p>
           <div className="flex gap-4">
             <a
               href="#"
-              className="text-neutral-400 hover:text-primary-400 transition-colors"
+              className="text-white/80 hover:text-primary-400 transition-colors"
               aria-label="Twitter"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -133,7 +133,7 @@ export default function Footer() {
             </a>
             <a
               href="#"
-              className="text-neutral-400 hover:text-primary-400 transition-colors"
+              className="text-white/80 hover:text-primary-400 transition-colors"
               aria-label="LinkedIn"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -142,7 +142,7 @@ export default function Footer() {
             </a>
             <a
               href="#"
-              className="text-neutral-400 hover:text-primary-400 transition-colors"
+              className="text-white/80 hover:text-primary-400 transition-colors"
               aria-label="Facebook"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

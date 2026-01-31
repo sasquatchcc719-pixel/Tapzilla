@@ -96,7 +96,7 @@ export default function ChatDemo() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-neutral-900 rounded-b-2xl z-10" />
 
         {/* Screen */}
-        <div className="bg-white rounded-[2.5rem] overflow-hidden">
+        <div className="bg-neutral-800 rounded-[2.5rem] overflow-hidden">
           {/* Header */}
           <div className="bg-primary-600 text-white px-6 py-4 pt-8">
             <div className="flex items-center gap-3">
@@ -111,7 +111,7 @@ export default function ChatDemo() {
           </div>
 
           {/* Chat Area */}
-          <div className="h-96 overflow-y-auto p-4 space-y-3 bg-neutral-50">
+          <div className="h-96 overflow-y-auto p-4 space-y-3 bg-neutral-850" style={{ backgroundColor: '#1a1a2e' }}>
             {conversation.slice(0, visibleMessages).map((message, i) => (
               <div
                 key={i}
@@ -128,7 +128,7 @@ export default function ChatDemo() {
                       {message.options.map((option, j) => (
                         <div
                           key={j}
-                          className="bg-white border border-neutral-200 rounded-lg px-3 py-1.5 text-xs text-neutral-700"
+                          className="bg-neutral-600 border border-neutral-500 rounded-lg px-3 py-1.5 text-xs text-neutral-200"
                         >
                           {option}
                         </div>
@@ -162,11 +162,11 @@ export default function ChatDemo() {
           </div>
 
           {/* Input Area */}
-          <div className="border-t border-neutral-200 p-3 flex gap-2">
+          <div className="border-t border-neutral-700 p-3 flex gap-2 bg-neutral-800">
             <input
               type="text"
               placeholder="Type a message..."
-              className="flex-1 bg-neutral-100 rounded-full px-4 py-2 text-sm focus:outline-none"
+              className="flex-1 bg-neutral-700 text-white rounded-full px-4 py-2 text-sm focus:outline-none placeholder-neutral-400"
               disabled
             />
             <button className="w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center">

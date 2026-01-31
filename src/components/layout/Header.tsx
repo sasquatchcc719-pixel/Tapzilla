@@ -36,15 +36,15 @@ export default function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-neutral-100">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-neutral-800">
       <nav className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img 
-              src="/logo-horizontal.png" 
+              src="/Tapzilla.svg" 
               alt="Tapzilla" 
-              className="h-12 md:h-14 w-auto"
+              className="h-10 md:h-12 w-auto"
             />
           </Link>
 
@@ -61,7 +61,7 @@ export default function Header() {
               >
                 <Link
                   href={item.href}
-                  className="text-neutral-600 hover:text-primary-600 font-medium transition-colors flex items-center gap-1"
+                  className="text-white hover:text-primary-400 font-medium transition-colors flex items-center gap-1"
                 >
                   {item.name}
                   {item.children && (
@@ -82,12 +82,12 @@ export default function Header() {
                 </Link>
                 {item.children && openDropdown === item.name && (
                   <div className="absolute top-full left-0 pt-2">
-                    <div className="bg-white rounded-xl shadow-xl border border-neutral-100 py-2 min-w-48">
+                    <div className="bg-neutral-800 rounded-xl shadow-xl border border-neutral-700 py-2 min-w-48">
                       {item.children.map((child) => (
                         <Link
                           key={child.name}
                           href={child.href}
-                          className="block px-4 py-2 text-neutral-600 hover:text-primary-600 hover:bg-neutral-50 transition-colors"
+                          className="block px-4 py-2 text-white hover:text-primary-400 hover:bg-neutral-700 transition-colors"
                         >
                           {child.name}
                         </Link>
@@ -103,7 +103,7 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-4">
             <Link
               href="/auth/login"
-              className="text-neutral-600 hover:text-primary-600 font-medium transition-colors"
+              className="text-white hover:text-primary-400 font-medium transition-colors"
             >
               Log In
             </Link>
@@ -114,7 +114,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2 text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? (
@@ -151,12 +151,12 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-neutral-100">
+          <div className="md:hidden py-4 border-t border-neutral-800">
             {navigation.map((item) => (
               <div key={item.name}>
                 <Link
                   href={item.href}
-                  className="block py-2 text-neutral-600 hover:text-primary-600 font-medium"
+                  className="block py-2 text-white hover:text-primary-400 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
@@ -167,7 +167,7 @@ export default function Header() {
                       <Link
                         key={child.name}
                         href={child.href}
-                        className="block py-2 text-neutral-500 hover:text-primary-600"
+                        className="block py-2 text-white/80 hover:text-primary-400"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         {child.name}
@@ -177,10 +177,10 @@ export default function Header() {
                 )}
               </div>
             ))}
-            <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-neutral-100">
+            <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-neutral-800">
               <Link
                 href="/auth/login"
-                className="text-center py-2 text-neutral-600 font-medium"
+                className="text-center py-2 text-white font-medium"
               >
                 Log In
               </Link>

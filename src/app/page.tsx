@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import ChatDemo from "@/components/chat/ChatDemo";
 
 const industries = [
@@ -82,17 +83,29 @@ const comparisonData = [
 
 export default function Home() {
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden bg-transparent">
       {/* Hero Section */}
-      <section className="section relative bg-gradient-to-br from-neutral-50 via-white to-primary-50">
+      <section className="section relative bg-transparent">
         <div className="container-custom">
+          {/* Large Logo */}
+          <div className="flex justify-center mb-12">
+            <Image
+              src="/Tapzilla.svg"
+              alt="Tapzilla"
+              width={400}
+              height={120}
+              className="w-full max-w-sm md:max-w-md lg:max-w-lg h-auto"
+              priority
+            />
+          </div>
+          
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="max-w-xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 leading-tight mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                 An AI Salesperson Behind Every{" "}
                 <span className="gradient-text">QR Code</span>
               </h1>
-              <p className="text-lg md:text-xl text-neutral-600 mb-8">
+              <p className="text-lg md:text-xl text-white mb-8">
                 Stop sending people to your website and hoping they call. Tapzilla
                 turns every scan into a conversation that captures qualified leads
                 automatically.
@@ -113,8 +126,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary-100/50 to-transparent -z-10" />
       </section>
 
       {/* The Problem Section */}
@@ -124,7 +135,7 @@ export default function Home() {
             QR Codes Are <span className="text-accent-400">Broken</span>
           </h2>
           <div className="max-w-3xl mx-auto">
-            <p className="text-xl text-neutral-300 mb-8">
+            <p className="text-xl text-white mb-8">
               You put a QR code on your truck. Someone scans it. They land on your
               website. They leave. You have no idea it happened.
             </p>
@@ -137,10 +148,10 @@ export default function Home() {
       </section>
 
       {/* The Solution Section */}
-      <section className="section" id="demo">
+      <section className="section bg-transparent" id="demo">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               What If Every Scan Started a{" "}
               <span className="gradient-text">Conversation</span>?
             </h2>
@@ -150,21 +161,21 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-16">
             <div className="card text-center p-8">
               <div className="text-4xl mb-3">📱</div>
-              <h3 className="font-semibold text-lg">Scan</h3>
+              <h3 className="font-semibold text-lg text-white">Scan</h3>
             </div>
-            <div className="text-4xl text-primary-500 rotate-90 md:rotate-0">→</div>
+            <div className="text-4xl text-primary-400 rotate-90 md:rotate-0">→</div>
             <div className="card text-center p-8">
               <div className="text-4xl mb-3">💬</div>
-              <h3 className="font-semibold text-lg">Chat</h3>
+              <h3 className="font-semibold text-lg text-white">Chat</h3>
             </div>
-            <div className="text-4xl text-primary-500 rotate-90 md:rotate-0">→</div>
+            <div className="text-4xl text-primary-400 rotate-90 md:rotate-0">→</div>
             <div className="card text-center p-8 border-2 border-accent-500">
               <div className="text-4xl mb-3">🎯</div>
-              <h3 className="font-semibold text-lg">Lead Delivered</h3>
+              <h3 className="font-semibold text-lg text-white">Lead Delivered</h3>
             </div>
           </div>
 
-          <p className="text-xl text-center text-neutral-600 max-w-3xl mx-auto">
+          <p className="text-xl text-center text-white max-w-3xl mx-auto">
             Our AI chatbot greets them, asks what they need, answers their questions,
             and collects their info. You get a qualified lead with name, phone,
             email, and exactly what they're looking for.
@@ -176,7 +187,7 @@ export default function Home() {
       <section className="section section-light">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               How It Works
             </h2>
           </div>
@@ -224,10 +235,10 @@ export default function Home() {
                   {item.icon}
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-neutral-900 mb-2">
+                  <h3 className="text-xl font-semibold text-white mb-2">
                     {item.step}. {item.title}
                   </h3>
-                  <p className="text-neutral-600">{item.description}</p>
+                  <p className="text-white">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -236,11 +247,11 @@ export default function Home() {
       </section>
 
       {/* The Magic Section */}
-      <section className="section">
+      <section className="section bg-transparent">
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                 The Magic Is The <span className="gradient-text">Conversation</span>
               </h2>
               <ul className="space-y-4">
@@ -253,7 +264,7 @@ export default function Home() {
                   "Captures info naturally",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3">
-                    <div className="w-6 h-6 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center">
+                    <div className="w-6 h-6 bg-primary-900 text-primary-400 rounded-full flex items-center justify-center">
                       <svg
                         className="w-4 h-4"
                         fill="none"
@@ -268,11 +279,11 @@ export default function Home() {
                         />
                       </svg>
                     </div>
-                    <span className="text-neutral-700">{item}</span>
+                    <span className="text-white">{item}</span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-8 text-lg text-neutral-600 italic">
+              <p className="mt-8 text-lg text-white italic">
                 "It's like having your best receptionist working 24/7 on every
                 truck, every sign, every card."
               </p>
@@ -292,7 +303,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Four Ways to Deploy
             </h2>
-            <p className="text-xl text-neutral-300">
+            <p className="text-xl text-white">
               Put your AI salesperson everywhere
             </p>
           </div>
@@ -308,7 +319,7 @@ export default function Home() {
                 <h3 className="text-xl font-semibold mb-2 group-hover:text-primary-400 transition-colors">
                   {channel.title}
                 </h3>
-                <p className="text-neutral-400 mb-4">{channel.description}</p>
+                <p className="text-white mb-4">{channel.description}</p>
                 <span className="text-primary-400 font-medium inline-flex items-center gap-1">
                   Learn More
                   <svg
@@ -332,14 +343,14 @@ export default function Home() {
       </section>
 
       {/* Pricing Preview Section */}
-      <section className="section">
+      <section className="section bg-transparent">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Pay Per Qualified Lead.{" "}
               <span className="gradient-text">Nothing Else.</span>
             </h2>
-            <p className="text-xl text-neutral-600">
+            <p className="text-xl text-white">
               No monthly fees. No contracts. You only pay when we deliver.
             </p>
           </div>
@@ -352,13 +363,13 @@ export default function Home() {
                 >
                   {tier.tier}
                 </div>
-                <div className="text-4xl font-bold text-neutral-900 mb-2">
+                <div className="text-4xl font-bold text-white mb-2">
                   {tier.price}
-                  <span className="text-lg font-normal text-neutral-500">
+                  <span className="text-lg font-normal text-white">
                     /lead
                   </span>
                 </div>
-                <p className="text-neutral-600 text-sm">{tier.industries}</p>
+                <p className="text-white text-sm">{tier.industries}</p>
               </div>
             ))}
           </div>
@@ -375,29 +386,29 @@ export default function Home() {
       <section className="section section-light">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               The Old Way vs The{" "}
               <span className="gradient-text">Tapzilla Way</span>
             </h2>
           </div>
 
           <div className="max-w-3xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div className="grid grid-cols-3 bg-neutral-100 font-semibold">
+            <div className="bg-neutral-800 rounded-2xl shadow-xl overflow-hidden border border-neutral-700">
+              <div className="grid grid-cols-3 bg-neutral-900 font-semibold">
                 <div className="p-4 text-center"></div>
-                <div className="p-4 text-center text-neutral-500">Old QR Code</div>
-                <div className="p-4 text-center text-primary-600">Tapzilla</div>
+                <div className="p-4 text-center text-white">Old QR Code</div>
+                <div className="p-4 text-center text-primary-400">Tapzilla</div>
               </div>
               {comparisonData.map((row, i) => (
                 <div
                   key={i}
-                  className="grid grid-cols-3 border-t border-neutral-100"
+                  className="grid grid-cols-3 border-t border-neutral-700"
                 >
-                  <div className="p-4 font-medium text-neutral-700">
+                  <div className="p-4 font-medium text-white">
                     {row.feature}
                   </div>
-                  <div className="p-4 text-center text-neutral-400">{row.old}</div>
-                  <div className="p-4 text-center text-primary-600 font-medium">
+                  <div className="p-4 text-center text-neutral-200">{row.old}</div>
+                  <div className="p-4 text-center text-primary-400 font-medium">
                     {row.new}
                   </div>
                 </div>
@@ -408,10 +419,10 @@ export default function Home() {
       </section>
 
       {/* Social Proof Section */}
-      <section className="section">
+      <section className="section bg-transparent">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Trusted by Local Service Businesses
             </h2>
           </div>
@@ -426,19 +437,19 @@ export default function Home() {
                 <div className="text-5xl font-bold gradient-text mb-2">
                   {item.stat}
                 </div>
-                <div className="text-neutral-600">{item.label}</div>
+                <div className="text-white">{item.label}</div>
               </div>
             ))}
           </div>
 
           {/* Testimonial placeholder */}
           <div className="max-w-2xl mx-auto text-center">
-            <blockquote className="text-xl text-neutral-600 italic mb-4">
+            <blockquote className="text-xl text-white italic mb-4">
               "We put Tapzilla on our trucks and started getting 3-5 extra leads a
               week. These are people who saw us working in their neighborhood. The
               ROI is insane."
             </blockquote>
-            <div className="font-semibold text-neutral-900">
+            <div className="font-semibold text-white">
               — Mike Johnson, Pro Carpet Care
             </div>
           </div>
@@ -449,10 +460,10 @@ export default function Home() {
       <section className="section section-light">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Built for <span className="gradient-text">Your Industry</span>
             </h2>
-            <p className="text-xl text-neutral-600">
+            <p className="text-xl text-white">
               AI trained specifically for home service businesses
             </p>
           </div>
@@ -465,7 +476,7 @@ export default function Home() {
                 className="card text-center hover:border-primary-500 transition-colors"
               >
                 <div className="text-3xl mb-2">{industry.icon}</div>
-                <div className="font-medium text-neutral-700">{industry.name}</div>
+                <div className="font-medium text-white">{industry.name}</div>
               </Link>
             ))}
           </div>
