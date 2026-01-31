@@ -40,13 +40,12 @@ export default function Header() {
       <nav className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-xl">T</span>
-            </div>
-            <span className="text-2xl font-bold text-neutral-900">
-              Tap<span className="text-primary-600">zilla</span>
-            </span>
+          <Link href="/" className="flex items-center">
+            <img 
+              src="/logo-horizontal.png" 
+              alt="Tapzilla" 
+              className="h-12 md:h-14 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}

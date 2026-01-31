@@ -35,13 +35,12 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-xl">T</span>
-              </div>
-              <span className="text-2xl font-bold">
-                Tap<span className="text-primary-400">zilla</span>
-              </span>
+            <Link href="/" className="mb-4 inline-block">
+              <img 
+                src="/logo-horizontal.png" 
+                alt="Tapzilla" 
+                className="h-12 w-auto"
+              />
             </Link>
             <p className="text-neutral-400 text-sm">
               An AI Salesperson Behind Every QR Code
