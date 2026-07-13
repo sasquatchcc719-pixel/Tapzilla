@@ -234,3 +234,64 @@ html {
   }
   .tz-hero-item { opacity: 1; }
 }
+
+/* ── Tap-echo site background (replaces the circuit board) ────────────── */
+.tz-echo {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.tz-echo-tint {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(55% 70% at 76% 34%, rgba(0, 217, 213, 0.08), transparent 70%);
+}
+.tz-echo-origin {
+  position: absolute;
+  top: 34%;
+  left: 76%;
+}
+@media (max-width: 1023px) {
+  .tz-echo-origin { top: 24%; left: 84%; }
+}
+.tz-echo-ring {
+  position: absolute;
+  width: 1100px;
+  height: 1100px;
+  margin: -550px;
+  border: 1.5px solid rgba(0, 217, 213, 0.32);
+  border-radius: 9999px;
+  opacity: 0;
+  animation: tz-echo 7.5s linear infinite;
+}
+.tz-echo-ring:nth-child(3) { animation-delay: 2.5s; }
+.tz-echo-ring:nth-child(4) {
+  animation-delay: 5s;
+  border-color: rgba(255, 127, 10, 0.2);
+}
+@keyframes tz-echo {
+  0% { transform: scale(0.16); opacity: 0.5; }
+  70% { opacity: 0.16; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+.tz-echo-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: -5px;
+  border-radius: 9999px;
+  background: #00d9d5;
+  box-shadow: 0 0 18px rgba(0, 217, 213, 0.8);
+  animation: tz-dot 7.5s ease-in-out infinite;
+}
+@keyframes tz-dot {
+  0%, 100% { opacity: 0.9; }
+  4% { opacity: 1; transform: scale(1.35); }
+  10% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tz-echo-ring { animation: none; opacity: 0.12; transform: scale(0.6); }
+  .tz-echo-dot { animation: none; }
+}

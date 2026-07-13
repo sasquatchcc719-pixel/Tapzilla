@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { TapEcho } from "@/components/marketing/TapEcho";
 
 /** Shared dark shell for the auth pages — matches the platform, not v1. */
 export function AuthShell({
@@ -13,15 +14,7 @@ export function AuthShell({
 }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-black px-4">
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 opacity-20"
-        style={{
-          backgroundImage: "url(/background-circuits.svg)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+      <TapEcho />
       <div className="relative w-full max-w-md">
         <div className="mb-8 text-center">
           <Link href="/" className="inline-block">
