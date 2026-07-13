@@ -82,7 +82,7 @@ export function PageRenderer({
           <div className="relative z-10 mx-auto max-w-md px-4 py-6">
             {enabledBlocks.map((block, i) => (
               <div key={i}>
-                {renderBlock(block, i)}
+                {renderBlock(block)}
                 {i === 0 && foundAt ? (
                   <div className="mb-5 rounded-2xl border-2 border-amber-500/70 bg-black/70 p-4">
                     <p className="flex items-center gap-2 text-sm font-semibold text-amber-300">
@@ -103,7 +103,7 @@ export function PageRenderer({
     </PageMetaContext.Provider>
   );
 
-  function renderBlock(block: (typeof enabledBlocks)[number], _i: number) {
+  function renderBlock(block: (typeof enabledBlocks)[number]) {
     switch (block.type) {
       case "hero_card":
         return <HeroCard block={block} business={business} />;
