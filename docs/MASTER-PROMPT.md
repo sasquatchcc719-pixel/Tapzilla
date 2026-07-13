@@ -104,11 +104,25 @@ panel = sticky live preview toggling between **phone-frame page preview** and
 - **Agent design:** Anthropic tool-use loop with tools:
   `get_config`, `apply_page_patch(patch)`, `apply_card_design_patch(patch)`,
   `set_business_info(fields)`, `suggest_templates(industry)`. Every patch is
-  zod-validated server-side; invalid patches bounce back to the model with the
-  error. Stream assistant text; after each successful tool call push the new
-  config to the preview over the same stream. System prompt: interview → draft
-  fast → then refine ("Here's a first version — what should we change?").
-  Never ask more than one question at a time. Plain language, zero jargon.
+  zod-validated server-side (also set `strict: true` on tool schemas); invalid
+  patches bounce back to the model with the error. Stream assistant text; after
+  each successful tool call push the new config to the preview over the same
+  stream. System prompt: interview → draft fast → then refine ("Here's a first
+  version — what should we change?"). Never ask more than one question at a
+  time. Plain language, zero jargon.
+- **Model & cost policy (binding):** builder model comes from env
+  `BUILDER_MODEL`, default **`claude-sonnet-5`** ($3/$15 per MTok; intro $2/$10
+  through 2026-08-31) with `output_config: {effort: "low"}` — this is
+  slot-filling and interviewing over a validated schema, not deep reasoning;
+  the templates/blocks ARE the intelligence. Use **`claude-haiku-4-5`**
+  ($1/$5) for the website-scrape → business-fields extraction step. Prompt
+  caching is mandatory: frozen system prompt + deterministic tool list first,
+  `cache_control` breakpoint after them, all per-session content after the
+  breakpoint (cache reads ≈0.1× input price). Guardrails in code: max ~30
+  agent turns per build session, per-user daily session cap, token ceiling per
+  session, all admin-configurable. Expected cost ≈ $0.05–0.20 per complete
+  build session — log per-session usage to an `ai_usage` column so real costs
+  are visible in admin.
 - **Form path:** same config edited by direct controls — template picker
   (industry-tagged, seeded with a Sasquatch-style flagship example), block
   list with toggle/drag-reorder, per-block prop forms, theme picker.

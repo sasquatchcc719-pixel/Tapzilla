@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Block, PageConfig } from "@/lib/page-config/schema";
-import { safeParsePageConfig } from "@/lib/page-config/schema";
+import { defaultPageConfig, safeParsePageConfig } from "@/lib/page-config/schema";
 import { TEMPLATES, getTemplate } from "@/lib/templates";
 import { PhonePreview } from "@/components/builder/PhonePreview";
 import { BusinessForm } from "@/components/builder/BusinessForm";
 import { ThemeForm } from "@/components/builder/ThemeForm";
 import { BlocksEditor } from "@/components/builder/BlocksEditor";
+import { BuilderChat } from "@/components/builder/BuilderChat";
 import { TextInput } from "@/components/builder/fields";
 
 const DRAFT_KEY = "tz_draft_v1";
@@ -31,7 +32,7 @@ function loadDraft(): Draft | null {
 export default function BuildPage() {
   const [draft, setDraft] = useState<Draft | null>(null);
   const [loaded, setLoaded] = useState(false);
-  const [tab, setTab] = useState<"info" | "blocks" | "design">("info");
+  const [tab, setTab] = useState<"ai" | "info" | "blocks" | "design">("ai");
   const [mobilePane, setMobilePane] = useState<"edit" | "preview">("edit");
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
@@ -117,6 +118,25 @@ export default function BuildPage() {
             />
           </div>
 
+          <button
+            type="button"
+            disabled={!nameInput.trim()}
+            onClick={() => {
+              setDraft({ config: defaultPageConfig(nameInput.trim()) });
+              setTab("ai");
+            }}
+            className="mx-auto mb-8 block w-full max-w-md rounded-2xl border border-primary-400/60 bg-primary-500/10 p-5 text-center transition-colors hover:bg-primary-500/20 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <p className="text-lg font-bold text-primary-300">✨ Build it for me</p>
+            <p className="mt-1 text-sm text-white/60">
+              Chat with our AI — describe your business or paste your website, watch your page appear.
+            </p>
+          </button>
+
+          <p className="mb-4 text-center text-xs font-semibold uppercase tracking-widest text-white/40">
+            or start from a template
+          </p>
+
           <div className="grid gap-4 sm:grid-cols-2">
             {TEMPLATES.map((t) => (
               <button
@@ -126,6 +146,7 @@ export default function BuildPage() {
                 onClick={() => {
                   const config = getTemplate(t.id)!.build(nameInput.trim());
                   setDraft({ config });
+                  setTab("info");
                 }}
                 className="rounded-2xl border border-white/15 bg-white/5 p-5 text-left transition-colors hover:border-primary-400 disabled:cursor-not-allowed disabled:opacity-40"
               >
@@ -135,7 +156,7 @@ export default function BuildPage() {
             ))}
           </div>
           {!nameInput.trim() ? (
-            <p className="mt-4 text-center text-sm text-white/40">Type your business name to pick a template</p>
+            <p className="mt-4 text-center text-sm text-white/40">Type your business name to get started</p>
           ) : null}
         </div>
       </div>
@@ -192,15 +213,16 @@ export default function BuildPage() {
       <div className="flex flex-1 overflow-hidden">
         {/* Left: editor panel */}
         <div
-          className={`w-full overflow-y-auto border-r border-white/10 bg-neutral-950 lg:block lg:w-[400px] ${
-            mobilePane === "edit" ? "block" : "hidden"
+          className={`w-full flex-col border-r border-white/10 bg-neutral-950 lg:flex lg:w-[400px] ${
+            mobilePane === "edit" ? "flex" : "hidden"
           }`}
         >
-          <div className="sticky top-0 z-10 flex border-b border-white/10 bg-neutral-950">
+          <div className="flex border-b border-white/10 bg-neutral-950">
             {(
               [
-                ["info", "Business info"],
-                ["blocks", "Page sections"],
+                ["ai", "✨ AI"],
+                ["info", "Info"],
+                ["blocks", "Sections"],
                 ["design", "Design"],
               ] as const
             ).map(([key, label]) => (
@@ -216,23 +238,29 @@ export default function BuildPage() {
               </button>
             ))}
           </div>
-          <div className="p-4 pb-24">
-            {tab === "info" ? (
-              <BusinessForm
-                config={config}
-                onChange={(patch) =>
-                  setConfig({ ...config, business: { ...config.business, ...patch } })
-                }
-              />
-            ) : tab === "blocks" ? (
-              <BlocksEditor config={config} onChange={(blocks: Block[]) => setConfig({ ...config, blocks })} />
-            ) : (
-              <ThemeForm
-                config={config}
-                onChange={(patch) => setConfig({ ...config, theme: { ...config.theme, ...patch } })}
-              />
-            )}
-          </div>
+          {tab === "ai" ? (
+            <div className="min-h-0 flex-1">
+              <BuilderChat config={config} onConfig={(c) => setConfig(c)} />
+            </div>
+          ) : (
+            <div className="flex-1 overflow-y-auto p-4 pb-24">
+              {tab === "info" ? (
+                <BusinessForm
+                  config={config}
+                  onChange={(patch) =>
+                    setConfig({ ...config, business: { ...config.business, ...patch } })
+                  }
+                />
+              ) : tab === "blocks" ? (
+                <BlocksEditor config={config} onChange={(blocks: Block[]) => setConfig({ ...config, blocks })} />
+              ) : (
+                <ThemeForm
+                  config={config}
+                  onChange={(patch) => setConfig({ ...config, theme: { ...config.theme, ...patch } })}
+                />
+              )}
+            </div>
+          )}
         </div>
 
         {/* Right: live preview */}
