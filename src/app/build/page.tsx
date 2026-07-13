@@ -11,11 +11,18 @@ import { BusinessForm } from "@/components/builder/BusinessForm";
 import { ThemeForm } from "@/components/builder/ThemeForm";
 import { BlocksEditor } from "@/components/builder/BlocksEditor";
 import { BuilderChat } from "@/components/builder/BuilderChat";
+import { CardPreview } from "@/components/builder/CardPreview";
 import { TextInput } from "@/components/builder/fields";
+import type { CardTemplateId } from "@/lib/card-templates";
 
 const DRAFT_KEY = "tz_draft_v1";
 
-type Draft = { config: PageConfig; pageId?: string; slug?: string };
+type Draft = {
+  config: PageConfig;
+  pageId?: string;
+  slug?: string;
+  cardTemplateId?: CardTemplateId;
+};
 
 function loadDraft(): Draft | null {
   try {
@@ -23,7 +30,9 @@ function loadDraft(): Draft | null {
     if (!raw) return null;
     const d = JSON.parse(raw);
     const parsed = safeParsePageConfig(d.config);
-    return parsed.success ? { config: parsed.data, pageId: d.pageId, slug: d.slug } : null;
+    return parsed.success
+      ? { config: parsed.data, pageId: d.pageId, slug: d.slug, cardTemplateId: d.cardTemplateId }
+      : null;
   } catch {
     return null;
   }
@@ -34,6 +43,7 @@ export default function BuildPage() {
   const [loaded, setLoaded] = useState(false);
   const [tab, setTab] = useState<"ai" | "info" | "blocks" | "design">("ai");
   const [mobilePane, setMobilePane] = useState<"edit" | "preview">("edit");
+  const [previewMode, setPreviewMode] = useState<"phone" | "card">("phone");
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [nameInput, setNameInput] = useState("");
@@ -73,7 +83,12 @@ export default function BuildPage() {
     const res = await fetch("/api/pages", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ config: draft.config, pageId: draft.pageId, publish }),
+      body: JSON.stringify({
+        config: draft.config,
+        pageId: draft.pageId,
+        publish,
+        cardTemplateId: draft.cardTemplateId ?? "voltage",
+      }),
     }).catch(() => null);
     setSaving(false);
 
@@ -263,13 +278,41 @@ export default function BuildPage() {
           )}
         </div>
 
-        {/* Right: live preview */}
+        {/* Right: live preview (phone page or physical card) */}
         <div
-          className={`flex-1 items-start justify-center overflow-y-auto bg-neutral-900/60 p-6 lg:flex ${
+          className={`flex-1 flex-col items-center overflow-y-auto bg-neutral-900/60 p-6 lg:flex ${
             mobilePane === "preview" ? "flex" : "hidden"
           }`}
         >
-          <PhonePreview config={config} />
+          <div className="mb-5 flex rounded-full border border-white/15 p-1">
+            {(
+              [
+                ["phone", "📱 Your page"],
+                ["card", "💳 Your card"],
+              ] as const
+            ).map(([key, label]) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setPreviewMode(key)}
+                className={`rounded-full px-4 py-1.5 text-sm font-semibold ${
+                  previewMode === key ? "bg-primary-500 text-black" : "text-white/60 hover:text-white"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          {previewMode === "phone" ? (
+            <PhonePreview config={config} />
+          ) : (
+            <CardPreview
+              config={config}
+              slug={draft.slug}
+              templateId={draft.cardTemplateId ?? "voltage"}
+              onTemplate={(t) => setDraft((d) => (d ? { ...d, cardTemplateId: t } : d))}
+            />
+          )}
         </div>
       </div>
     </div>

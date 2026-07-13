@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    // native binary — must stay out of the webpack bundle
+    serverComponentsExternalPackages: ["@resvg/resvg-js"],
+  },
   async redirects() {
     // v1 marketing routes retired in the smart-card relaunch
     return [

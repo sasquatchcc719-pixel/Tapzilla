@@ -9,7 +9,28 @@ const saveInput = z.object({
   pageId: z.string().uuid().optional(),
   publish: z.boolean().optional(),
   config: z.unknown(),
+  cardTemplateId: z.enum(["voltage", "clean", "bold"]).optional(),
 });
+
+async function upsertCardDesign(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  pageId: string,
+  templateId: string
+) {
+  const { data: existing } = await supabase
+    .from("card_designs")
+    .select("id")
+    .eq("page_id", pageId)
+    .limit(1)
+    .maybeSingle();
+  if (existing) {
+    await supabase.from("card_designs").update({ template_id: templateId }).eq("id", existing.id);
+  } else {
+    await supabase
+      .from("card_designs")
+      .insert({ page_id: pageId, source: "template", template_id: templateId });
+  }
+}
 
 function slugify(name: string): string {
   return (
@@ -59,6 +80,7 @@ export async function POST(req: NextRequest) {
       .select("id, slug, status")
       .single();
     if (error || !page) return NextResponse.json({ error: "not found" }, { status: 404 });
+    if (input.data.cardTemplateId) await upsertCardDesign(supabase, page.id, input.data.cardTemplateId);
     return NextResponse.json({ pageId: page.id, slug: page.slug, status: page.status });
   }
 
@@ -109,6 +131,7 @@ export async function POST(req: NextRequest) {
       .select("id, slug, status")
       .single();
     if (!error && page) {
+      if (input.data.cardTemplateId) await upsertCardDesign(supabase, page.id, input.data.cardTemplateId);
       return NextResponse.json({ pageId: page.id, slug: page.slug, status: page.status });
     }
     if (error && !/duplicate|unique/i.test(error.message)) {

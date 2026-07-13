@@ -63,7 +63,7 @@ export default async function DashboardPage() {
               Last 30 days · <span className="capitalize">{data.planId}</span> plan
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {data.page ? (
               <Link
                 href={`/p/${data.page.slug}`}
@@ -71,6 +71,22 @@ export default async function DashboardPage() {
               >
                 View my page
               </Link>
+            ) : null}
+            {data.page ? (
+              <a
+                href={`/api/card-file/${data.page.id}?side=front&format=png`}
+                className="rounded-lg border border-white/20 px-4 py-2 text-sm text-white/80 hover:bg-white/10"
+              >
+                Card art ↓
+              </a>
+            ) : null}
+            {data.features.csv_export ? (
+              <a
+                href="/api/export?what=leads"
+                className="rounded-lg border border-white/20 px-4 py-2 text-sm text-white/80 hover:bg-white/10"
+              >
+                Leads CSV ↓
+              </a>
             ) : null}
             <Link
               href="/build"

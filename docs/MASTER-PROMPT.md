@@ -186,10 +186,16 @@ non-card URL.
   with unlock CTA — data is always collected, only the view is gated; lead-form
   block visible-but-locked in the Starter builder; footer badge links to
   Tapzilla. Downgrades degrade features but NEVER kill a page or card URL.
-- **Checkout:** Stripe Checkout — line items: hardware SKUs from `products`
-  (tier discount applied) + chosen plan subscription. Webhook: on payment →
-  publish page, mint `cards` rows + codes, render artwork PDFs to storage,
-  create order in `pending_fulfillment`.
+- **Checkout (Square, not Stripe — the founder's existing processor):** our
+  own checkout page using Square Web Payments SDK for card entry, then two
+  server calls: CreatePayment for hardware SKUs from `products` (tier discount
+  applied) and CreateSubscription (card on file) for the chosen plan — Square
+  can't bundle one-time + recurring in one hosted checkout, so we own the page.
+  Catalog subscription plans mirror the `plans` table. Sandbox env first
+  (`SQUARE_ENVIRONMENT`), production + a dedicated "Tapzilla" Location at
+  launch to keep revenue separate from the founder's other business. Webhook
+  (signature-verified): on payment → publish page, mint `cards` rows + codes,
+  render artwork PDFs to storage, create order in `pending_fulfillment`.
 - **Fulfillment pipeline:** `FulfillmentProvider` interface
   (`createOrder/getStatus/webhook`). Ship `ManualProvider`: admin queue at
   `/admin/orders` showing artwork download + URL list + address, one-click
