@@ -121,3 +121,8 @@ html {
     @apply bg-primary-600 text-white rounded-2xl rounded-tr-sm p-4 max-w-xs ml-auto;
   }
 }
+
+/* Card-page form controls */
+.tz-input {
+  @apply w-full rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-base text-white placeholder-white/40 outline-none focus:border-white/50;
+}
