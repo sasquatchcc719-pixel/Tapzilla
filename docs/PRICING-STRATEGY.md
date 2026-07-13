@@ -86,3 +86,31 @@ Tier 3 a future-proofing story from day one.
   features, never to a dead URL. (Dead cards = chargebacks + horror reviews.)
 - All limits live in a `plans` config table so we can tune numbers without
   deploys, and grandfather early customers by pointing their row at legacy plans.
+
+---
+
+## REVISION 2026-07-13 (supersedes the tier table above)
+
+Founder corrections applied:
+1. **Cards/magnets are ONE URL per business** — quantity is never capped or a
+   plan feature. Hardware is a separate transactional store (volume ladder:
+   1–9 $35 · 10–49 $20 · 50–199 $12 · 200–999 $8 · 1,000+ quote).
+2. **No phone integration, ever.** Call capture/Twilio is dead. Conversion path
+   = booking links out (Jobber, Housecall Pro, website) + the lead form.
+3. **Placard locations are the growth axis** (proof: founder's $20 nail-salon
+   placard produced 4 jobs at $400–$1,000 each).
+
+| | Starter $9 | Pro $29 ⭐ | Zilla $99 |
+|---|---|---|---|
+| Card page (one URL, unlimited hardware) | ✅ | ✅ | ✅ |
+| Lead form + instant alerts | — | ✅ | ✅ |
+| Full analytics + CSV | — | ✅ | ✅ |
+| AI redesigns | — | ✅ | ✅ |
+| **Placard locations** | — | **3** | **15** (+5/$25/mo) |
+| Webhooks/Zapier to CRM | — | — | ✅ |
+| Hardware discount | — | 10% | 20% + free replacements |
+| Badge removed | — | ✅ | ✅ |
+
+Per-maintained-thing cost declines each step ($9 → $7.25 → $6.19) — the founder's
+"bulk discount on maintenance" psychology. Placards are Pro-and-up only.
+Subscription is prerequisite for hardware orders; hardware never required.

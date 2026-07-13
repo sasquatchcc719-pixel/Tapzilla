@@ -18,7 +18,7 @@ export default async function TapPage({
 
   const { data: card } = await supabase
     .from("cards")
-    .select("id, page_id, business_id, status")
+    .select("id, page_id, business_id, status, product_type, label")
     .eq("card_code", params.code)
     .single();
   if (!card || card.status !== "active") notFound();
@@ -48,6 +48,7 @@ export default async function TapPage({
         }}
         cardId={card.id}
         medium={medium}
+        foundAt={card.product_type === "placard" ? card.label : null}
       />
     </div>
   );

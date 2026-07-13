@@ -7,7 +7,9 @@ export type DashboardData = {
   business: { id: string; name: string };
   planId: string;
   features: Record<string, boolean>;
+  maxLocations: number;
   page: { id: string; slug: string; status: string } | null;
+  primaryCode: string | null;
   taps30: number;
   tapsPrev30: number;
   tapsByDay: { day: string; count: number }[];
@@ -15,7 +17,7 @@ export type DashboardData = {
   deviceSplit: Record<string, number>;
   returningPct: number;
   buttonClicks: { button: string; count: number }[];
-  perCard: { cardId: string; label: string; code: string; taps: number }[];
+  locations: { id: string; label: string; code: string; status: string; taps: number }[];
   leads: {
     id: string;
     name: string | null;
@@ -50,11 +52,18 @@ export async function loadDashboard(
       .order("updated_at", { ascending: false })
       .limit(1)
       .maybeSingle(),
-    supabase.from("cards").select("id, label, card_code").eq("business_id", business.id),
+    supabase
+      .from("cards")
+      .select("id, label, card_code, product_type, status")
+      .eq("business_id", business.id),
   ]);
 
   const planId = sub?.plan_id ?? "starter";
-  const { data: plan } = await supabase.from("plans").select("features").eq("id", planId).maybeSingle();
+  const { data: plan } = await supabase
+    .from("plans")
+    .select("features, max_locations")
+    .eq("id", planId)
+    .maybeSingle();
   const features = (plan?.features as Record<string, boolean>) ?? {};
 
   const since30 = new Date(Date.now() - 30 * 86400_000).toISOString();
@@ -119,11 +128,16 @@ export async function loadDashboard(
     .filter((l) => l.status === "won")
     .reduce((sum, l) => sum + (l.value_cents ?? 0), 0);
 
+  const primary = (cards ?? []).find((c) => c.product_type === "card");
+  const placards = (cards ?? []).filter((c) => c.product_type === "placard");
+
   return {
     business,
     planId,
     features,
+    maxLocations: plan?.max_locations ?? 0,
     page: page ?? null,
+    primaryCode: primary?.card_code ?? null,
     taps30: taps?.length ?? 0,
     tapsPrev30: prevTaps?.length ?? 0,
     tapsByDay: Array.from(tapsByDayMap.entries()).map(([day, count]) => ({ day, count })),
@@ -133,10 +147,11 @@ export async function loadDashboard(
     buttonClicks: Array.from(clickMap.entries())
       .map(([button, count]) => ({ button, count }))
       .sort((a, b) => b.count - a.count),
-    perCard: (cards ?? []).map((c) => ({
-      cardId: c.id,
-      label: c.label ?? "Card",
+    locations: placards.map((c) => ({
+      id: c.id,
+      label: c.label ?? "Location",
       code: c.card_code,
+      status: c.status,
       taps: perCardMap.get(c.id) ?? 0,
     })),
     leads: leads ?? [],

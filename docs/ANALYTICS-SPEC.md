@@ -111,3 +111,14 @@ Twilio number ≈ $1.15/mo + pennies/min; Trestle-class lookups ≈ $0.03–0.10
 property lookups metered with monthly included quota (e.g. 100 enrichments/mo,
 then metered). Zilla at $99/mo carries all of it comfortably — CallRail alone
 retails at $45+/mo for less attribution than we give.
+
+---
+
+## REVISION 2026-07-13 — L4 (call & text capture) DELETED
+
+No telephony integration, ever (founder decision — plain tel:/sms: links stay,
+backends don't). The unused calls/sms/tracking_numbers tables are dormant.
+Attribution model correction: cards/magnets share ONE code per page (page-level
+analytics); per-code attribution belongs to **placard locations** — the
+dashboard's "Locations" section (Pro 3 / Zilla 15). Zilla's anchors are now
+placard scale + webhooks/Zapier, not calls.

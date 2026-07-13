@@ -33,7 +33,7 @@ const TIERS = [
     blurb: "Your page, live and tap-tracked",
     features: [
       "1 smart card page",
-      "2 active cards",
+      "Order any quantity of cards & magnets",
       "Call · text · save · share buttons",
       "Coupon code",
       "Tap counts",
@@ -46,10 +46,10 @@ const TIERS = [
     price: "$29",
     blurb: "The workhorse — leads in writing",
     features: [
-      "10 active cards — one per tech",
       "Quote request form + instant alerts",
-      "Per-card & per-button analytics",
+      "Full analytics + CSV export",
       "AI redesigns anytime",
+      "3 placard locations in partner businesses",
       "Badge removed · 10% off hardware",
     ],
     cta: "Go Pro",
@@ -58,13 +58,13 @@ const TIERS = [
   {
     name: "Zilla",
     price: "$99",
-    blurb: "Every call, captured",
+    blurb: "The placard empire",
     features: [
-      "Unlimited cards · 5 pages",
-      "Call & text capture with per-card attribution",
-      "Missed-call instant text-back",
-      "Lead enrichment + webhooks",
-      "20% off hardware · priority everything",
+      "15 placard locations (+5 for $25/mo)",
+      "Per-location attribution — know which spot earns",
+      "Webhooks / Zapier to Jobber, Housecall Pro & more",
+      "20% off hardware + free replacements",
+      "Priority everything",
     ],
     cta: "Unleash Zilla",
     featured: false,
@@ -175,10 +175,9 @@ export default function Home() {
               These ones <span className="tz-electric">report back.</span>
             </h2>
             <p className="mt-5 max-w-md text-lg text-white/65">
-              Every tap is attributed to the physical card that earned it — the one on
-              the fridge in Monument, the one your tech hands out, the magnet from the
-              March mailer. Mark leads won, and your dashboard talks in dollars, not
-              vibes.
+              Every tap on your cards and magnets, every scan of your placard in the
+              nail salon across town — tracked to the source. Mark leads won, and your
+              dashboard talks in dollars, not vibes.
             </p>
             <Link
               href="/build"

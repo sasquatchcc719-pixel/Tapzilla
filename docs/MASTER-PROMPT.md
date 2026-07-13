@@ -258,3 +258,20 @@ SMS/AI agents of any kind. Vendor partner placards (product #2, later — but ke
 "coming to Zilla" on the pricing page, not sold). Freehand AI image generation
 on card fronts. Direct vendor APIs (Phase B/C of fulfillment doc — requires
 human phone calls first).
+
+---
+
+## REVISION 2026-07-13 — product-model corrections (binding, supersede above)
+
+1. **Cards/magnets = ONE URL per business.** Publish mints exactly one primary
+   tap code; every physical unit (any quantity — founder prefers magnets,
+   hotel-key format) prints it. No per-unit tracking for cards.
+2. **Vendor placards are product #2 and are LIVE** — per-location tracked codes
+   (`cards.product_type='placard'`), managed in the dashboard Locations
+   section, capped by `plans.max_locations` (Pro 3 / Zilla 15). Placard taps
+   show a "Found at: {location}" badge (the proven Sasquatch pattern).
+3. **No phone integration, ever.** Phase 5b is cancelled. Booking links out
+   (Jobber/Housecall Pro/website) are the conversion path.
+4. Hardware = separate always-available store with volume ladder; 1,000+ units
+   becomes a quote request (bulk fulfillment channel differs). Subscription
+   required to order hardware.

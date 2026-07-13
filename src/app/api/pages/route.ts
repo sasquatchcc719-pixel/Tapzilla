@@ -32,6 +32,36 @@ async function upsertCardDesign(
   }
 }
 
+function mintCode(): string {
+  // short, unguessable, chip-friendly
+  const bytes = crypto.getRandomValues(new Uint8Array(8));
+  return Array.from(bytes, (b) => "abcdefghijklmnopqrstuvwxyz0123456789"[b % 36]).join("");
+}
+
+/** Cards/magnets are ONE URL per business: ensure exactly one primary card
+ * code exists once the page is published — every physical unit prints it. */
+async function ensurePrimaryCard(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  pageId: string,
+  businessId: string
+) {
+  const { data: existing } = await supabase
+    .from("cards")
+    .select("id")
+    .eq("page_id", pageId)
+    .eq("product_type", "card")
+    .limit(1)
+    .maybeSingle();
+  if (existing) return;
+  await supabase.from("cards").insert({
+    card_code: mintCode(),
+    page_id: pageId,
+    business_id: businessId,
+    product_type: "card",
+    label: "Your card",
+  });
+}
+
 function slugify(name: string): string {
   return (
     name
@@ -77,10 +107,11 @@ export async function POST(req: NextRequest) {
         ...(input.data.publish ? { status: "published", published_at: new Date().toISOString() } : {}),
       })
       .eq("id", input.data.pageId)
-      .select("id, slug, status")
+      .select("id, slug, status, business_id")
       .single();
     if (error || !page) return NextResponse.json({ error: "not found" }, { status: 404 });
     if (input.data.cardTemplateId) await upsertCardDesign(supabase, page.id, input.data.cardTemplateId);
+    if (page.status === "published") await ensurePrimaryCard(supabase, page.id, page.business_id);
     return NextResponse.json({ pageId: page.id, slug: page.slug, status: page.status });
   }
 
@@ -132,6 +163,7 @@ export async function POST(req: NextRequest) {
       .single();
     if (!error && page) {
       if (input.data.cardTemplateId) await upsertCardDesign(supabase, page.id, input.data.cardTemplateId);
+      if (page.status === "published") await ensurePrimaryCard(supabase, page.id, businessId);
       return NextResponse.json({ pageId: page.id, slug: page.slug, status: page.status });
     }
     if (error && !/duplicate|unique/i.test(error.message)) {

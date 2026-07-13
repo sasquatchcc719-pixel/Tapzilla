@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { loadDashboard } from "@/lib/analytics";
 import { BarSpark, Gated, SplitBar, StatCard } from "@/components/dashboard/widgets";
 import { LeadInbox } from "@/components/dashboard/LeadInbox";
+import { LocationsManager } from "@/components/dashboard/LocationsManager";
 
 export const dynamic = "force-dynamic";
 
@@ -164,63 +165,58 @@ export default async function DashboardPage() {
           </Gated>
         </div>
 
-        {/* Per-card attribution */}
-        <Gated locked={!pro} feature="Per-card tracking">
+        {/* Your card URL — the one URL every card and magnet points to */}
+        {data.primaryCode ? (
           <div className="mb-6 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-white/50">
-              Your cards
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-white/50">
+              Your card URL — every card & magnet points here
             </p>
-            {data.perCard.length ? (
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="text-left text-xs uppercase tracking-wide text-white/40">
-                    <th className="pb-2">Card</th>
-                    <th className="pb-2">Code</th>
-                    <th className="pb-2 text-right">Taps (30d)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.perCard.map((c) => (
-                    <tr key={c.cardId} className="border-t border-white/5 text-white/80">
-                      <td className="py-2">{c.label}</td>
-                      <td className="py-2 font-mono text-xs text-white/50">{c.code}</td>
-                      <td className="py-2 text-right font-bold">{c.taps}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p className="text-sm text-white/40">
-                Your physical cards appear here once your order ships — each one tracked separately.
-              </p>
-            )}
+            <p className="break-all font-mono text-sm text-primary-300">
+              {process.env.NEXT_PUBLIC_APP_URL ?? "https://tapzilla.vercel.app"}/t/{data.primaryCode}
+            </p>
           </div>
-        </Gated>
+        ) : null}
 
-        {/* Returning visitors + Zilla teaser */}
+        {/* Placard locations — the growth product */}
+        {data.features.placards ? (
+          <div className="mb-6">
+            <LocationsManager
+              initial={data.locations}
+              maxLocations={data.maxLocations}
+              appUrl={process.env.NEXT_PUBLIC_APP_URL ?? "https://tapzilla.vercel.app"}
+            />
+          </div>
+        ) : (
+          <div className="mb-6 rounded-2xl border border-dashed border-amber-400/40 bg-amber-500/5 p-4">
+            <p className="text-sm font-bold text-white">
+              🏪 Placards: your ad on someone else&apos;s counter
+            </p>
+            <p className="mt-1 text-xs text-white/60">
+              Mount a tracked placard inside a partner business — a barbershop, a nail
+              salon — and see exactly which location sends you jobs. One good spot can
+              pay for your plan many times over. Pro includes 3 locations.
+            </p>
+            <Link
+              href="/pricing"
+              className="mt-2 inline-block text-sm font-semibold text-amber-300 hover:underline"
+            >
+              Unlock placards →
+            </Link>
+          </div>
+        )}
+
+        {/* Returning visitors */}
         <div className="mb-6 grid gap-3 sm:grid-cols-2">
           <StatCard
             label="Returning visitors"
             value={`${data.returningPct}%`}
             sub="People who came back to your page"
           />
-          {!data.features.call_capture ? (
-            <div className="rounded-2xl border border-dashed border-white/20 p-4">
-              <p className="text-sm font-bold text-white">
-                📞 {data.buttonClicks.find((b) => b.button === "call")?.count ?? 0} call clicks — what
-                happened next?
-              </p>
-              <p className="mt-1 text-xs text-white/60">
-                Zilla tracks every call your cards generate: who called, from which card, and
-                texts back anyone you miss.
-              </p>
-              <Link href="/pricing" className="mt-2 inline-block text-sm font-semibold text-primary-300 hover:underline">
-                See Zilla →
-              </Link>
-            </div>
-          ) : (
-            <StatCard label="Call capture" value="Active" sub="Calls and missed-call text-back are being tracked" />
-          )}
+          <StatCard
+            label="Active placard locations"
+            value={data.features.placards ? String(data.locations.filter((l) => l.status === "active").length) : "—"}
+            sub={data.features.placards ? `of ${data.maxLocations} included in your plan` : "Included with Pro and Zilla"}
+          />
         </div>
 
         {/* Lead inbox */}

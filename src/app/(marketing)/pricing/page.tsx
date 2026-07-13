@@ -15,8 +15,8 @@ const TIERS = [
     annual: 90,
     blurb: "Your page, live and tap-tracked.",
     features: [
-      "1 smart card page",
-      "2 active cards",
+      "1 smart card page — one URL on every card",
+      "Order any quantity of cards & magnets",
       "Call · text · save-contact · share buttons",
       "Coupon code on your page",
       "Tap counts, last 30 days",
@@ -30,11 +30,11 @@ const TIERS = [
     annual: 290,
     blurb: "The workhorse. Leads in writing, proof in numbers.",
     features: [
-      "10 active cards — one per tech, truck, or counter",
       "Quote request form + instant lead alerts",
-      "Per-card & per-button analytics, full history",
+      "Full analytics — every button, full history",
       "CSV export",
       "AI redesigns anytime",
+      "3 placard locations in partner businesses",
       "“Powered by Tapzilla” badge removed",
       "10% off all hardware",
     ],
@@ -44,14 +44,11 @@ const TIERS = [
     name: "Zilla",
     price: 99,
     annual: 990,
-    blurb: "Every call captured. Nothing slips.",
+    blurb: "The placard empire. Your ad in every good spot in town.",
     features: [
-      "Unlimited cards · up to 5 pages",
-      "Call & text capture with a tracking number",
-      "Per-card call attribution",
-      "Missed-call instant text-back",
-      "Lead enrichment (homeowner & property data)",
-      "Webhooks / Zapier to your CRM",
+      "15 placard locations — add 5 more for $25/mo",
+      "Per-location attribution: know which spot earns",
+      "Webhooks / Zapier to Jobber, Housecall Pro & your CRM",
       "20% off hardware + free replacements",
       "Priority fulfillment & support",
     ],
@@ -66,6 +63,10 @@ const HARDWARE = [
 ];
 
 const FAQS = [
+  {
+    q: "What's a placard location?",
+    a: "A mounted ad with your tap chip + QR inside a partner business — the barbershop counter, the nail salon wall. Each location gets its own tracked link, so your dashboard shows exactly which spot sends you jobs. One good location can pay for your whole plan.",
+  },
   {
     q: "Do I need a new card if I change my page?",
     a: "Never. The chip points to your page, and your page is editable forever. Change your prices, coupon, photos — the card in someone's kitchen drawer just gets better.",
