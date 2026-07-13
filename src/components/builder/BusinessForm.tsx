@@ -2,6 +2,7 @@
 
 import type { PageConfig } from "@/lib/page-config/schema";
 import { Field, TextInput, TextArea } from "./fields";
+import { ReviewLinkFinder } from "./ReviewLinkFinder";
 
 export function BusinessForm({
   config,
@@ -53,14 +54,11 @@ export function BusinessForm({
           onChange={(e) => onChange({ website: e.target.value || undefined })}
         />
       </Field>
-      <Field label="Google review link" hint="From your Google Business Profile → 'Ask for reviews'">
-        <TextInput
-          type="url"
-          value={b.reviewUrl ?? ""}
-          placeholder="https://g.page/r/…"
-          onChange={(e) => onChange({ reviewUrl: e.target.value || undefined })}
-        />
-      </Field>
+      <ReviewLinkFinder
+        value={b.reviewUrl}
+        cityHint={b.serviceAreas[0]}
+        onChange={(url) => onChange({ reviewUrl: url })}
+      />
       <Field label="Online booking link" hint="Calendly, Housecall Pro, Square… (optional)">
         <TextInput
           type="url"
