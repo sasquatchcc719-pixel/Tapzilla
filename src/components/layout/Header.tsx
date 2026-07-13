@@ -1,193 +1,100 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 const navigation = [
-  { name: "How It Works", href: "/how-it-works" },
-  {
-    name: "Channels",
-    href: "/channels",
-    children: [
-      { name: "Vehicle QR", href: "/channels/vehicle" },
-      { name: "Job Site Signs", href: "/channels/job-site" },
-      { name: "Partner Locations", href: "/channels/partner" },
-      { name: "Smart Cards", href: "/channels/handout" },
-    ],
-  },
-  {
-    name: "Industries",
-    href: "/industries",
-    children: [
-      { name: "Roofing", href: "/industries/roofing" },
-      { name: "HVAC", href: "/industries/hvac" },
-      { name: "Plumbing", href: "/industries/plumbing" },
-      { name: "Carpet Cleaning", href: "/industries/carpet-cleaning" },
-      { name: "House Cleaning", href: "/industries/house-cleaning" },
-      { name: "Landscaping", href: "/industries/landscaping" },
-      { name: "More...", href: "/industries" },
-    ],
-  },
+  { name: "How it works", href: "/#how" },
   { name: "Pricing", href: "/pricing" },
+  { name: "Live demo", href: "/p/summit-carpet-care" },
 ];
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-neutral-800">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur-md">
       <nav className="container-custom">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
+        <div className="flex h-16 items-center justify-between md:h-20">
           <Link href="/" className="flex items-center">
-            <img 
-              src="/Tapzilla.svg" 
-              alt="Tapzilla" 
-              className="h-10 md:h-12 w-auto"
+            <Image
+              src="/Tapzilla.svg"
+              alt="Tapzilla"
+              width={150}
+              height={48}
+              className="tz-logo-blend h-10 w-auto md:h-12"
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden items-center gap-8 md:flex">
             {navigation.map((item) => (
-              <div
+              <Link
                 key={item.name}
-                className="relative"
-                onMouseEnter={() =>
-                  item.children && setOpenDropdown(item.name)
-                }
-                onMouseLeave={() => setOpenDropdown(null)}
+                href={item.href}
+                className="font-medium text-white/80 transition-colors hover:text-primary-400"
               >
-                <Link
-                  href={item.href}
-                  className="text-white hover:text-primary-400 font-medium transition-colors flex items-center gap-1"
-                >
-                  {item.name}
-                  {item.children && (
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  )}
-                </Link>
-                {item.children && openDropdown === item.name && (
-                  <div className="absolute top-full left-0 pt-2">
-                    <div className="bg-neutral-800 rounded-xl shadow-xl border border-neutral-700 py-2 min-w-48">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.name}
-                          href={child.href}
-                          className="block px-4 py-2 text-white hover:text-primary-400 hover:bg-neutral-700 transition-colors"
-                        >
-                          {child.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+                {item.name}
+              </Link>
             ))}
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden items-center gap-4 md:flex">
             <Link
-              href="/auth/login"
-              className="text-white hover:text-primary-400 font-medium transition-colors"
+              href="/dashboard"
+              className="font-medium text-white/80 transition-colors hover:text-primary-400"
             >
-              Log In
+              Dashboard
             </Link>
-            <Link href="/auth/signup" className="btn-primary">
-              Get Started
+            <Link
+              href="/build"
+              className="tz-glow-btn rounded-xl bg-primary-500 px-5 py-2.5 font-bold text-black transition-transform hover:scale-[1.03]"
+            >
+              Build yours
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-white"
+            className="p-2 text-white md:hidden"
+            aria-label="Menu"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-neutral-800">
+          <div className="border-t border-white/10 py-4 md:hidden">
             {navigation.map((item) => (
-              <div key={item.name}>
-                <Link
-                  href={item.href}
-                  className="block py-2 text-white hover:text-primary-400 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-                {item.children && (
-                  <div className="pl-4">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.name}
-                        href={child.href}
-                        className="block py-2 text-white/80 hover:text-primary-400"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {child.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-neutral-800">
               <Link
-                href="/auth/login"
-                className="text-center py-2 text-white font-medium"
+                key={item.name}
+                href={item.href}
+                className="block py-2.5 font-medium text-white/85"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                Log In
+                {item.name}
               </Link>
-              <Link href="/auth/signup" className="btn-primary text-center">
-                Get Started
-              </Link>
-            </div>
+            ))}
+            <Link
+              href="/dashboard"
+              className="block py-2.5 font-medium text-white/85"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Dashboard
+            </Link>
+            <Link
+              href="/build"
+              className="mt-3 block rounded-xl bg-primary-500 py-3 text-center font-bold text-black"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Build yours
+            </Link>
           </div>
         )}
       </nav>

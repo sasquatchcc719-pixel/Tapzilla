@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Unbounded } from "next/font/google";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -11,6 +12,11 @@ const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
+});
+const display = Unbounded({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["400", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -31,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-black">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-black text-white relative`}
+        className={`${geistSans.variable} ${geistMono.variable} ${display.variable} antialiased font-sans bg-black text-white relative`}
       >
         {children}
       </body>

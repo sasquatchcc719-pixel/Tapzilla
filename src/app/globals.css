@@ -126,3 +126,111 @@ html {
 .tz-input {
   @apply w-full rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-base text-white placeholder-white/40 outline-none focus:border-white/50;
 }
+
+/* ── Marketing site: electric-kaiju motion system ─────────────────────── */
+
+/* Logo integration: screen blend melts the traced dark fringe into the
+   dark background; the glow sells it as light, not a sticker. */
+.tz-logo-blend {
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 28px rgba(0, 217, 213, 0.35))
+    drop-shadow(0 0 8px rgba(255, 127, 10, 0.2));
+}
+
+/* Electric gradient text with a slow shimmer */
+.tz-electric {
+  background: linear-gradient(100deg, #00f5ef 0%, #00d9d5 35%, #ffb45c 65%, #ff7f0a 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: tz-shimmer 5s ease-in-out infinite;
+}
+@keyframes tz-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Staggered hero entrance */
+.tz-hero-item {
+  opacity: 0;
+  animation: tz-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes tz-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* CTA glow pulse */
+.tz-glow-btn {
+  box-shadow: 0 0 24px rgba(0, 217, 213, 0.35);
+  animation: tz-glow 3.2s ease-in-out infinite;
+}
+@keyframes tz-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 217, 213, 0.3); }
+  50% { box-shadow: 0 0 44px rgba(0, 217, 213, 0.55); }
+}
+
+/* Tap ticker marquee */
+.tz-marquee {
+  animation: tz-marquee 36s linear infinite;
+}
+.tz-marquee:hover { animation-play-state: paused; }
+@keyframes tz-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* NFC card: idle float vs the tap lunge */
+.tz-card-idle {
+  animation: tz-float 4.5s ease-in-out infinite;
+}
+@keyframes tz-float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(0, -10px); }
+}
+.tz-card-tap {
+  animation: tz-tap 1.6s cubic-bezier(0.34, 1.3, 0.5, 1) forwards;
+}
+@keyframes tz-tap {
+  0% { transform: translate(0, 0); }
+  40% { transform: translate(74px, 6px); }
+  60% { transform: translate(74px, 6px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Ripple where the card touches the screen */
+.tz-ripple {
+  animation: tz-ripple 1.1s ease-out 0.55s forwards;
+  opacity: 0;
+}
+@keyframes tz-ripple {
+  0% { opacity: 1; transform: scale(0.6); }
+  100% { opacity: 0; transform: scale(7); }
+}
+
+/* Phone reacts to the tap */
+.tz-phone-nudge {
+  animation: tz-nudge 0.7s ease-out 0.6s;
+}
+@keyframes tz-nudge {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  30% { transform: rotate(0.8deg) scale(1.012); }
+}
+
+/* Featured pricing tier: breathing border */
+.tz-featured-tier {
+  animation: tz-breathe 4s ease-in-out infinite;
+}
+@keyframes tz-breathe {
+  0%, 100% { box-shadow: 0 0 0 rgba(0, 217, 213, 0.0); }
+  50% { box-shadow: 0 0 36px rgba(0, 217, 213, 0.18); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tz-electric, .tz-hero-item, .tz-glow-btn, .tz-marquee,
+  .tz-card-idle, .tz-card-tap, .tz-ripple, .tz-phone-nudge, .tz-featured-tier {
+    animation: none !important;
+  }
+  .tz-hero-item { opacity: 1; }
+}

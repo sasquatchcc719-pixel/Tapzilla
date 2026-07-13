@@ -1,512 +1,281 @@
 import Link from "next/link";
 import Image from "next/image";
-import ChatDemo from "@/components/chat/ChatDemo";
+import { HeroPhone } from "@/components/marketing/HeroPhone";
+import { TapTicker } from "@/components/marketing/TapTicker";
+import { Reveal } from "@/components/marketing/Reveal";
+import { DashboardMock } from "@/components/marketing/DashboardMock";
 
-const industries = [
-  { name: "Roofing", icon: "🏠", href: "/industries/roofing" },
-  { name: "HVAC", icon: "❄️", href: "/industries/hvac" },
-  { name: "Plumbing", icon: "🔧", href: "/industries/plumbing" },
-  { name: "Carpet Cleaning", icon: "🧹", href: "/industries/carpet-cleaning" },
-  { name: "House Cleaning", icon: "🏡", href: "/industries/house-cleaning" },
-  { name: "Landscaping", icon: "🌿", href: "/industries/landscaping" },
-  { name: "Pest Control", icon: "🐜", href: "/industries/pest-control" },
-  { name: "Electrical", icon: "⚡", href: "/industries/electrical" },
-  { name: "Painting", icon: "🎨", href: "/industries/painting" },
-  { name: "Auto Detailing", icon: "🚗", href: "/industries/auto-detailing" },
-];
-
-const pricingTiers = [
+const STEPS = [
   {
-    tier: "Premium",
-    price: "$10",
-    industries: "Roofing, HVAC, Water Restoration, Solar",
-    color: "bg-gradient-to-r from-amber-500 to-orange-500",
+    n: "01",
+    title: "Tell our AI about your business",
+    body: "Chat for two minutes — or just paste your website. It builds your page while you watch, and you tweak anything with plain English.",
+    icon: "💬",
   },
   {
-    tier: "Standard",
-    price: "$5",
-    industries: "Plumbing, Electrical, Painting, General Contractors",
-    color: "bg-gradient-to-r from-primary-500 to-primary-700",
+    n: "02",
+    title: "We print, encode & ship your cards",
+    body: "NFC business cards with magnetic backs, wired to your page. Stick one on every fridge you clean, every panel you fix.",
+    icon: "📦",
   },
   {
-    tier: "Basic",
-    price: "$2",
-    industries: "Carpet Cleaning, House Cleaning, Landscaping, Pest Control",
-    color: "bg-gradient-to-r from-emerald-500 to-teal-500",
-  },
-  {
-    tier: "Starter",
-    price: "$1",
-    industries: "Pet Grooming, Auto Detailing, Small Services",
-    color: "bg-gradient-to-r from-blue-500 to-indigo-500",
+    n: "03",
+    title: "Watch taps turn into jobs",
+    body: "Every tap, call, and quote request is tracked to the exact card that earned it. Your dashboard shows the dollars.",
+    icon: "📈",
   },
 ];
 
-const channels = [
+const TIERS = [
   {
-    icon: "🚐",
-    title: "Vehicle QR",
-    description: "Your truck is a billboard. Now it's a lead machine.",
-    href: "/channels/vehicle",
+    name: "Starter",
+    price: "$9",
+    blurb: "Your page, live and tap-tracked",
+    features: [
+      "1 smart card page",
+      "2 active cards",
+      "Call · text · save · share buttons",
+      "Coupon code",
+      "Tap counts",
+    ],
+    cta: "Start simple",
+    featured: false,
   },
   {
-    icon: "🏠",
-    title: "Job Site Signs",
-    description: "Neighbors see you working. Now they can hire you.",
-    href: "/channels/job-site",
+    name: "Pro",
+    price: "$29",
+    blurb: "The workhorse — leads in writing",
+    features: [
+      "10 active cards — one per tech",
+      "Quote request form + instant alerts",
+      "Per-card & per-button analytics",
+      "AI redesigns anytime",
+      "Badge removed · 10% off hardware",
+    ],
+    cta: "Go Pro",
+    featured: true,
   },
   {
-    icon: "📍",
-    title: "Partner Locations",
-    description: "Your placard on their counter. Leads on autopilot.",
-    href: "/channels/partner",
+    name: "Zilla",
+    price: "$99",
+    blurb: "Every call, captured",
+    features: [
+      "Unlimited cards · 5 pages",
+      "Call & text capture with per-card attribution",
+      "Missed-call instant text-back",
+      "Lead enrichment + webhooks",
+      "20% off hardware · priority everything",
+    ],
+    cta: "Unleash Zilla",
+    featured: false,
   },
-  {
-    icon: "💳",
-    title: "Smart Business Cards",
-    description: "Cards that start conversations, not collect dust.",
-    href: "/channels/handout",
-  },
-];
-
-const comparisonData = [
-  {
-    feature: "What happens on scan",
-    old: "Links to website",
-    new: "Starts a conversation",
-  },
-  { feature: "Lead capture", old: "Hope they call", new: "Captures their info" },
-  { feature: "Tracking", old: "No tracking", new: "Know every scan" },
-  { feature: "Result", old: "Dead end", new: "Qualified lead" },
-  { feature: "Value", old: "$0 value", new: "Actual lead value" },
 ];
 
 export default function Home() {
   return (
-    <div className="overflow-hidden bg-transparent">
-      {/* Hero Section */}
-      <section className="section relative bg-transparent">
-        <div className="container-custom">
-          {/* Large Logo */}
-          <div className="flex justify-center mb-12">
+    <div className="overflow-hidden">
+      {/* ── Hero ─────────────────────────────────────────────────────── */}
+      <section className="relative">
+        <div className="container-custom grid items-center gap-14 pb-16 pt-10 lg:grid-cols-2 lg:pb-24 lg:pt-16">
+          <div className="max-w-xl">
             <Image
               src="/Tapzilla.svg"
               alt="Tapzilla"
-              width={400}
-              height={120}
-              className="w-full max-w-sm md:max-w-md lg:max-w-lg h-auto"
+              width={340}
+              height={112}
               priority
+              className="tz-logo-blend tz-hero-item mb-8 h-20 w-auto sm:h-24"
             />
-          </div>
-          
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="max-w-xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                An AI Salesperson Behind Every{" "}
-                <span className="gradient-text">QR Code</span>
-              </h1>
-              <p className="text-lg md:text-xl text-white mb-8">
-                Stop sending people to your website and hoping they call. Tapzilla
-                turns every scan into a conversation that captures qualified leads
-                automatically.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="#demo" className="btn-primary text-lg px-8 py-4">
-                  See It In Action
-                </Link>
-                <Link href="/signup" className="btn-outline text-lg px-8 py-4">
-                  Get Started
-                </Link>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-accent-500/20 blur-3xl rounded-full" />
-              <ChatDemo />
-            </div>
-          </div>
-        </div>
-
-      </section>
-
-      {/* The Problem Section */}
-      <section className="section section-dark">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            QR Codes Are <span className="text-accent-400">Broken</span>
-          </h2>
-          <div className="max-w-3xl mx-auto">
-            <p className="text-xl text-white mb-8">
-              You put a QR code on your truck. Someone scans it. They land on your
-              website. They leave. You have no idea it happened.
+            <h1
+              className="tz-hero-item font-display text-4xl font-bold leading-[1.05] text-white sm:text-5xl lg:text-6xl"
+              style={{ animationDelay: "120ms" }}
+            >
+              The business card
+              <br />
+              that <span className="tz-electric">books jobs</span>
+            </h1>
+            <p
+              className="tz-hero-item mt-6 text-lg text-white/70 sm:text-xl"
+              style={{ animationDelay: "240ms" }}
+            >
+              A customer taps their phone to your card — your page opens, they book,
+              and you see exactly which card earned the money. No app. No website
+              rebuild. No monkey business.
             </p>
-            <p className="text-2xl font-semibold text-white">
-              That's not lead generation. That's a{" "}
-              <span className="text-accent-400">dead end</span>.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* The Solution Section */}
-      <section className="section bg-transparent" id="demo">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              What If Every Scan Started a{" "}
-              <span className="gradient-text">Conversation</span>?
-            </h2>
-          </div>
-
-          {/* Visual Flow */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-16">
-            <div className="card text-center p-8">
-              <div className="text-4xl mb-3">📱</div>
-              <h3 className="font-semibold text-lg text-white">Scan</h3>
-            </div>
-            <div className="text-4xl text-primary-400 rotate-90 md:rotate-0">→</div>
-            <div className="card text-center p-8">
-              <div className="text-4xl mb-3">💬</div>
-              <h3 className="font-semibold text-lg text-white">Chat</h3>
-            </div>
-            <div className="text-4xl text-primary-400 rotate-90 md:rotate-0">→</div>
-            <div className="card text-center p-8 border-2 border-accent-500">
-              <div className="text-4xl mb-3">🎯</div>
-              <h3 className="font-semibold text-lg text-white">Lead Delivered</h3>
-            </div>
-          </div>
-
-          <p className="text-xl text-center text-white max-w-3xl mx-auto">
-            Our AI chatbot greets them, asks what they need, answers their questions,
-            and collects their info. You get a qualified lead with name, phone,
-            email, and exactly what they're looking for.
-          </p>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section className="section section-light">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              How It Works
-            </h2>
-          </div>
-
-          <div className="max-w-4xl mx-auto space-y-8">
-            {[
-              {
-                step: 1,
-                title: "Put your QR code anywhere",
-                description:
-                  "Trucks, yard signs, business cards, partner locations - anywhere people see your brand",
-                icon: "📍",
-              },
-              {
-                step: 2,
-                title: "Someone scans",
-                description:
-                  "They're greeted by YOUR AI assistant, branded to your business",
-                icon: "📱",
-              },
-              {
-                step: 3,
-                title: "The conversation happens",
-                description:
-                  '"What service do you need?" "When do you need it?" "What\'s the best number to reach you?" - Plus answers their questions from your FAQ',
-                icon: "💬",
-              },
-              {
-                step: 4,
-                title: "You get the lead",
-                description:
-                  "Name, phone, email, address, service needed, timeline - delivered instantly",
-                icon: "🎯",
-              },
-              {
-                step: 5,
-                title: "You close",
-                description:
-                  "Call a warm prospect who already wants to talk to you",
-                icon: "✅",
-              },
-            ].map((item) => (
-              <div key={item.step} className="flex gap-6 items-start">
-                <div className="flex-shrink-0 w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center text-2xl shadow-lg">
-                  {item.icon}
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    {item.step}. {item.title}
-                  </h3>
-                  <p className="text-white">{item.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* The Magic Section */}
-      <section className="section bg-transparent">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                The Magic Is The <span className="gradient-text">Conversation</span>
-              </h2>
-              <ul className="space-y-4">
-                {[
-                  "No forms to fill out",
-                  "No waiting on hold",
-                  "No hoping they call",
-                  "Answers questions instantly",
-                  "Works 24/7, even holidays",
-                  "Captures info naturally",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3">
-                    <div className="w-6 h-6 bg-primary-900 text-primary-400 rounded-full flex items-center justify-center">
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <span className="text-white">{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-8 text-lg text-white italic">
-                "It's like having your best receptionist working 24/7 on every
-                truck, every sign, every card."
-              </p>
-            </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-accent-500/20 to-primary-500/20 blur-3xl rounded-full" />
-              <ChatDemo />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Four Channels Section */}
-      <section className="section section-dark">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Four Ways to Deploy
-            </h2>
-            <p className="text-xl text-white">
-              Put your AI salesperson everywhere
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {channels.map((channel) => (
+            <div
+              className="tz-hero-item mt-9 flex flex-wrap items-center gap-4"
+              style={{ animationDelay: "360ms" }}
+            >
               <Link
-                key={channel.title}
-                href={channel.href}
-                className="bg-neutral-800 rounded-2xl p-6 hover:bg-neutral-700 transition-colors group"
+                href="/build"
+                className="tz-glow-btn rounded-2xl bg-primary-500 px-8 py-4 text-lg font-bold text-black transition-transform hover:scale-[1.03]"
               >
-                <div className="text-4xl mb-4">{channel.icon}</div>
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-primary-400 transition-colors">
-                  {channel.title}
-                </h3>
-                <p className="text-white mb-4">{channel.description}</p>
-                <span className="text-primary-400 font-medium inline-flex items-center gap-1">
-                  Learn More
-                  <svg
-                    className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
+                Build yours in 2 minutes
+              </Link>
+              <Link
+                href="/pricing"
+                className="rounded-2xl border border-white/20 px-8 py-4 text-lg font-semibold text-white/85 transition-colors hover:border-primary-400 hover:text-white"
+              >
+                See pricing
+              </Link>
+            </div>
+            <p
+              className="tz-hero-item mt-5 text-sm text-white/40"
+              style={{ animationDelay: "460ms" }}
+            >
+              Built by a carpet cleaner who got tired of business cards that do nothing.
+            </p>
+          </div>
+
+          <div className="tz-hero-item" style={{ animationDelay: "300ms" }}>
+            <HeroPhone />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Live tap feed ────────────────────────────────────────────── */}
+      <TapTicker />
+
+      {/* ── How it works ─────────────────────────────────────────────── */}
+      <section className="container-custom py-20 lg:py-28" id="how">
+        <Reveal>
+          <p className="text-center text-sm font-bold uppercase tracking-[0.25em] text-primary-400">
+            How it works
+          </p>
+          <h2 className="mx-auto mt-3 max-w-2xl text-center font-display text-3xl font-bold text-white sm:text-4xl">
+            From &ldquo;what&rsquo;s a smart card?&rdquo; to shipped in one sitting
+          </h2>
+        </Reveal>
+        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          {STEPS.map((s, i) => (
+            <Reveal key={s.n} delay={i * 130}>
+              <div className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 transition-colors hover:border-primary-500/50">
+                <span className="absolute -right-3 -top-6 font-display text-8xl font-bold text-white/[0.04] transition-colors group-hover:text-primary-500/10">
+                  {s.n}
                 </span>
-              </Link>
-            ))}
-          </div>
+                <span className="text-3xl">{s.icon}</span>
+                <h3 className="mt-4 font-display text-xl font-bold text-white">{s.title}</h3>
+                <p className="mt-3 leading-relaxed text-white/60">{s.body}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      {/* Pricing Preview Section */}
-      <section className="section bg-transparent">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Pay Per Qualified Lead.{" "}
-              <span className="gradient-text">Nothing Else.</span>
-            </h2>
-            <p className="text-xl text-white">
-              No monthly fees. No contracts. You only pay when we deliver.
+      {/* ── Analytics ────────────────────────────────────────────────── */}
+      <section className="border-y border-white/5 bg-gradient-to-b from-transparent via-primary-950/20 to-transparent py-20 lg:py-28">
+        <div className="container-custom grid items-center gap-12 lg:grid-cols-2">
+          <Reveal>
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent-400">
+              Know what works
             </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {pricingTiers.map((tier) => (
-              <div key={tier.tier} className="card">
-                <div
-                  className={`${tier.color} text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4`}
-                >
-                  {tier.tier}
-                </div>
-                <div className="text-4xl font-bold text-white mb-2">
-                  {tier.price}
-                  <span className="text-lg font-normal text-white">
-                    /lead
-                  </span>
-                </div>
-                <p className="text-white text-sm">{tier.industries}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link href="/pricing" className="btn-secondary text-lg px-8 py-4">
-              See Full Pricing
+            <h2 className="mt-3 font-display text-3xl font-bold text-white sm:text-4xl">
+              Paper cards vanish.
+              <br />
+              These ones <span className="tz-electric">report back.</span>
+            </h2>
+            <p className="mt-5 max-w-md text-lg text-white/65">
+              Every tap is attributed to the physical card that earned it — the one on
+              the fridge in Monument, the one your tech hands out, the magnet from the
+              March mailer. Mark leads won, and your dashboard talks in dollars, not
+              vibes.
+            </p>
+            <Link
+              href="/build"
+              className="mt-7 inline-block rounded-xl border border-accent-500/60 px-6 py-3 font-semibold text-accent-300 transition-colors hover:bg-accent-500/10"
+            >
+              Get your dashboard →
             </Link>
-          </div>
+          </Reveal>
+          <Reveal delay={150}>
+            <DashboardMock />
+          </Reveal>
         </div>
       </section>
 
-      {/* Comparison Section */}
-      <section className="section section-light">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              The Old Way vs The{" "}
-              <span className="gradient-text">Tapzilla Way</span>
-            </h2>
-          </div>
-
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-neutral-800 rounded-2xl shadow-xl overflow-hidden border border-neutral-700">
-              <div className="grid grid-cols-3 bg-neutral-900 font-semibold">
-                <div className="p-4 text-center"></div>
-                <div className="p-4 text-center text-white">Old QR Code</div>
-                <div className="p-4 text-center text-primary-400">Tapzilla</div>
-              </div>
-              {comparisonData.map((row, i) => (
-                <div
-                  key={i}
-                  className="grid grid-cols-3 border-t border-neutral-700"
-                >
-                  <div className="p-4 font-medium text-white">
-                    {row.feature}
-                  </div>
-                  <div className="p-4 text-center text-neutral-200">{row.old}</div>
-                  <div className="p-4 text-center text-primary-400 font-medium">
-                    {row.new}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Social Proof Section */}
-      <section className="section bg-transparent">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Trusted by Local Service Businesses
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {[
-              { stat: "10,000+", label: "Leads Delivered" },
-              { stat: "50,000+", label: "Conversations" },
-              { stat: "500+", label: "Businesses" },
-            ].map((item) => (
-              <div key={item.label} className="text-center">
-                <div className="text-5xl font-bold gradient-text mb-2">
-                  {item.stat}
-                </div>
-                <div className="text-white">{item.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Testimonial placeholder */}
-          <div className="max-w-2xl mx-auto text-center">
-            <blockquote className="text-xl text-white italic mb-4">
-              "We put Tapzilla on our trucks and started getting 3-5 extra leads a
-              week. These are people who saw us working in their neighborhood. The
-              ROI is insane."
-            </blockquote>
-            <div className="font-semibold text-white">
-              — Mike Johnson, Pro Carpet Care
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Industries Section */}
-      <section className="section section-light">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Built for <span className="gradient-text">Your Industry</span>
-            </h2>
-            <p className="text-xl text-white">
-              AI trained specifically for home service businesses
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {industries.map((industry) => (
-              <Link
-                key={industry.name}
-                href={industry.href}
-                className="card text-center hover:border-primary-500 transition-colors"
-              >
-                <div className="text-3xl mb-2">{industry.icon}</div>
-                <div className="font-medium text-white">{industry.name}</div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA Section */}
-      <section className="section bg-gradient-to-br from-primary-600 to-primary-800 text-white">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to Turn Every Scan Into a Lead?
+      {/* ── Pricing ──────────────────────────────────────────────────── */}
+      <section className="container-custom py-20 lg:py-28" id="pricing">
+        <Reveal>
+          <h2 className="text-center font-display text-3xl font-bold text-white sm:text-4xl">
+            Cards are one-time. <span className="tz-electric">Results are monthly.</span>
           </h2>
-          <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
-            No monthly fees. Pay only for results. Get started with a $99 setup and
-            see your first leads roll in.
+          <p className="mx-auto mt-4 max-w-xl text-center text-white/60">
+            Hardware from $35 one-time. Plans keep your page live, your taps tracked,
+            and your leads landing.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+        </Reveal>
+        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          {TIERS.map((t, i) => (
+            <Reveal key={t.name} delay={i * 130}>
+              <div
+                className={`relative h-full rounded-3xl border p-7 ${
+                  t.featured
+                    ? "tz-featured-tier border-primary-500/70 bg-primary-500/[0.07]"
+                    : "border-white/10 bg-white/[0.03]"
+                }`}
+              >
+                {t.featured ? (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary-500 px-4 py-1 text-xs font-bold uppercase tracking-wide text-black">
+                    Most popular
+                  </span>
+                ) : null}
+                <h3 className="font-display text-xl font-bold text-white">{t.name}</h3>
+                <p className="mt-1 text-sm text-white/50">{t.blurb}</p>
+                <p className="mt-5 font-display text-5xl font-bold text-white">
+                  {t.price}
+                  <span className="text-base font-normal text-white/40">/mo</span>
+                </p>
+                <ul className="mt-6 space-y-2.5">
+                  {t.features.map((f) => (
+                    <li key={f} className="flex gap-2.5 text-sm text-white/75">
+                      <span className="text-primary-400">⚡</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/build"
+                  className={`mt-8 block rounded-xl py-3 text-center font-bold transition-colors ${
+                    t.featured
+                      ? "bg-primary-500 text-black hover:bg-primary-400"
+                      : "border border-white/20 text-white hover:border-white/50"
+                  }`}
+                >
+                  {t.cta}
+                </Link>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Final CTA ────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-24 lg:py-32">
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-40"
+          style={{
+            background:
+              "radial-gradient(60% 80% at 50% 100%, rgba(0,217,213,0.25), transparent)",
+          }}
+        />
+        <div className="container-custom relative text-center">
+          <Reveal>
+            <h2 className="mx-auto max-w-3xl font-display text-4xl font-bold leading-tight text-white sm:text-5xl">
+              Your next customer is holding their phone
+              <span className="tz-electric"> right now.</span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-lg text-white/60">
+              Two minutes with our AI and your page is live. Cards show up in the mail.
+              Taps show up in your pocket.
+            </p>
             <Link
-              href="/signup"
-              className="bg-white text-primary-700 font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5"
+              href="/build"
+              className="tz-glow-btn mt-10 inline-block rounded-2xl bg-primary-500 px-10 py-5 text-xl font-bold text-black transition-transform hover:scale-[1.03]"
             >
-              Start Free
+              Build my smart card →
             </Link>
-            <Link
-              href="/contact"
-              className="border-2 border-white text-white font-semibold px-8 py-4 rounded-lg hover:bg-white/10 transition-colors"
-            >
-              Talk to Sales
-            </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
     </div>
