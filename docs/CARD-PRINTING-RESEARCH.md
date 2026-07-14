@@ -70,3 +70,14 @@ Full-color printing is **not** what makes a card expensive — CMYK on both side
 **Open questions to resolve with vendors:** Does Tagstand offer a magnet-backed card (not just its stock fridge magnet)? What are TapTag's actual per-unit tiers net of the $75/$45 setup fees? Does RFIDCard.com genuinely warehouse/dropship in the US (**verification could not confirm** — treat as China OEM until proven)? Can GoToTags or a Chinese OEM commit to a custom encode-from-CSV order feed for real automation at scale?
 
 **Note:** Drop **CardsPlug** from the candidate list entirely — [cardsplug.com](https://www.cardsplug.com/) is a UK personalized-football-card shop with no NFC, encoding, dropship, or API offering; it was mis-identified in the earlier shallow research.
+---
+
+## ADDENDUM 2026-07-13 — chosen magnet approach (supersedes §3 manufacturing path)
+
+Founder decision: **do NOT manufacture custom ferrite magnet-backed cards.** Instead ship a normal printed+encoded NFC card plus **loose peel-and-stick adhesive magnet buttons** in the same package; the customer applies them. This is what he already does by hand and it works.
+
+Implications vs the report above:
+- §3's ferrite-shielded magnet-card manufacturing (Seritag/Gyrfidstore magnet SKUs, 500 MOQ, higher unit cost) is **no longer the path** — keep it only as a fallback if a fully-integrated magnet card is ever wanted.
+- Card sourcing simplifies: a plain one-sided printed+encoded NFC card (Tagstand for launch) + separately-sourced bulk adhesive magnet discs (pennies each).
+- **New vendor question:** can the card dropshipper (Tagstand/TapTag) KIT customer-supplied magnets into each blind-dropship package? If not, magnets ship separately — resolve before committing to a hands-off dropship flow.
+- Store/checkout: magnets = cheap bundled/opt-in line item, not a premium product.
