@@ -79,5 +79,5 @@ Founder decision: **do NOT manufacture custom ferrite magnet-backed cards.** Ins
 Implications vs the report above:
 - §3's ferrite-shielded magnet-card manufacturing (Seritag/Gyrfidstore magnet SKUs, 500 MOQ, higher unit cost) is **no longer the path** — keep it only as a fallback if a fully-integrated magnet card is ever wanted.
 - Card sourcing simplifies: a plain one-sided printed+encoded NFC card (Tagstand for launch) + separately-sourced bulk adhesive magnet discs (pennies each).
-- **New vendor question:** can the card dropshipper (Tagstand/TapTag) KIT customer-supplied magnets into each blind-dropship package? If not, magnets ship separately — resolve before committing to a hands-off dropship flow.
+- **Magnets ship separately** in their own cheap padded envelope — fully decoupled from card dropship. No vendor kitting needed; cards blind-dropship from the vendor, magnets mail independently for pennies + a stamp. Not a fulfillment concern.
 - Store/checkout: magnets = cheap bundled/opt-in line item, not a premium product.
